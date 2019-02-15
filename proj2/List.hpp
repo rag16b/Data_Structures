@@ -111,13 +111,13 @@ List<T>::List(List && rhs) : theSize{ rhs.theSize }, head{ rhs.head }, tail{ rhs
 	rhs.head = nullptr;
 	rhs.tail = nullptr;
 }
-template <typename T>		// make sure this is still working correctly***********************
+template <typename T>		// make sure this is still working correctly~~~~~~~~~~~~~~~~~~~~~~~
 List<T>::List(int num, const T & val){
 	init();
 	for (int i = 0; i < num; i++)
 		push_back(val);
 }
-template <typename T>
+template <typename T>		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 List<T>::List(const_iterator start, const_iterator end){
 	init();
 	while(start != end)
@@ -155,9 +155,13 @@ void List<T>::clear(){
 	while( !empty() )
 		pop_front();
 }
-template <typename T>	//*************************************************************************
+template <typename T>	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void List<T>::reverse(){
-	
+	List<T>::iterator itr = begin();
+	List<T> temp;
+	while(itr != end())
+		temp.push_front((itr++).current->data);
+	*this = temp;
 }
 
 template <typename T>
@@ -192,14 +196,14 @@ template <typename T>
 void List<T>::pop_back()
 	{ erase(--end()); }
 
-template <typename T>	//*************************************************************************
+template <typename T>	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void List<T>::remove(const T & val){
 	for( List<T>::iterator temp = begin(); temp != end(); temp++ )
 		if( temp.current->data == val )
 			erase(temp);
 }
 
-template <typename T>// maybe	//*****************************************************************
+template <typename T>	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void List<T>::print(std::ostream & os, char ofc) const{
 	for( List<T>::const_iterator temp = begin(); temp != end(); temp++ )
 		os << temp.current->data << ofc;
@@ -207,16 +211,16 @@ void List<T>::print(std::ostream & os, char ofc) const{
 
 template <typename T>
 typename List<T>::iterator List<T>::begin()
-	{ return { head->next }; }
+	{ return { iterator(head->next) }; }
 template <typename T>
 typename List<T>::const_iterator List<T>::begin() const
-	{ return { head->next }; }
+	{ return { iterator(head->next) }; }
 template <typename T>
 typename List<T>::iterator List<T>::end()
-	{ return { tail }; }
+	{ return { iterator(tail) }; }
 template <typename T>
 typename List<T>::const_iterator List<T>::end() const
-	{ return { tail }; }
+	{ return { iterator(tail) }; }
 template <typename T>
 typename List<T>::iterator List<T>::insert( List<T>::iterator itr, const T& val ){
 	Node *p = itr.current;
@@ -257,24 +261,24 @@ void List<T>::init(){
 // end List function implementations--------------------------------
 
 // GLOBAL FUNCTION DEFINITIONS--------------------------------------
-template <typename T>
+template <typename T>	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 bool operator==(const List<T> & lhs, const List<T> & rhs){
 	if (lhs.size() == rhs.size()){
-		typename List<T>::iterator itrL = lhs.begin();
-		typename List<T>::iterator itrR = rhs.begin();
+		typename List<T>::const_iterator itrL = lhs.begin();
+		typename List<T>::const_iterator itrR = rhs.begin();
 		for (int i = 0; i < lhs.size(); i++){
-			if ((itrL++).current->data != (itrR++).current->data)
+			if (*(itrL++) != *(itrR++))
 				return false;
 		}
 		return true;
 	}
 	return false;
 }
-template <typename T>
+template <typename T>	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 bool operator!=(const List<T> & lhs, const List<T> & rhs){
 	return !(lhs == rhs);
 }
-template <typename T>
+template <typename T>	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 std::ostream & operator<<(std::ostream & os, const List<T> & l){
 	l.print(os);
 	return os;
