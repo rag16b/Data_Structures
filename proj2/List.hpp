@@ -127,7 +127,7 @@ template <typename T>		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 List<T>::List(const_iterator start, const_iterator end){
 	init();
 	while(start != end)
-		push_back((start++).current->data);
+		push_back(*(start++));
 }
 
 template <typename T>
@@ -166,7 +166,7 @@ void List<T>::reverse(){
 	List<T>::iterator itr = begin();
 	List<T> temp;
 	while(itr != end())
-		temp.push_front((itr++).current->data);
+		temp.push_front(*(itr++));
 	*this = temp;
 }
 
