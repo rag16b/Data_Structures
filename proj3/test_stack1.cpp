@@ -34,9 +34,9 @@ int main() {
 	Stack<int> intstk2;
 	intstk2 = intstk;
 
-	//     cout << intstk << endl;
-	//     cout << intstk1 << endl;
-	//     cout << intstk2 << endl;
+	//     cout << "0: " << intstk << endl;
+	//     cout << "1: " << intstk1 << endl;
+	//     cout << "2: " << intstk2 << endl;
 
 	if (intstk1 == intstk2)
 		cout << "Equal stacks" << endl;

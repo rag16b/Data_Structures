@@ -11,20 +11,20 @@
 #ifndef DL_STACK_H	// NOT SURE WHAT THIS DOES, JUST THAT IT WAS IN LIST.H
 #define	DL_STACK_H	//  IN PROJECT 2
 #include <iostream>
+#include <iterator>
+#include <vector>
 
 namespace cop4530 {
 
 	template <typename T>
-		class stack {
-			private:
-				int top;
+		class Stack {
 			public:
 				Stack();
 				~Stack();
-				Stack (const Stack<T>&); // copy constructor.   
+				Stack(const Stack<T> &); // copy constructor.   
 				Stack(Stack<T> &&); // move constructor.
-				Stack<T>& operator= (const Stack <T>&); // copy assignment operator=.
-				Stack<T> & operator=(Stack<T> &&); // move assignment operator=
+				Stack<T>& operator=(const Stack<T>&); // copy assignment operator=.
+				Stack<T>& operator=(Stack<T> &&); // move assignment operator=
 				bool empty() const; // returns true if the Stack contains no elements, and false otherwise.  
 				void clear(); // delete all elements from the stack.
 				void push(const T& x); // adds  x  to the Stack.   copy version.
@@ -37,18 +37,20 @@ namespace cop4530 {
 				// print elements of Stack to ostream os. ofc is the separator between elements in the stack when they are printed out.
 				//  Note that print() prints elements in the opposite order of the Stack (that is, the oldest element should be printed first).
 				void print(std::ostream& os, char ofc = ' ') const;
-		}
-	// overloading comparison operators
+			private:
+				std::vector<T> vecData;
+		};
+
+	// insertion operator overload
 	template <typename T>
 		std::ostream& operator<< (std::ostream& os, const Stack<T>& a);
+	// comparison operator overloads
 	template <typename T>
-		bool operator== (const Stack<T>& a, const Stack <T>& b);
+		bool operator== (const Stack<T>& a, const Stack<T>& b);
 	template <typename T>
-		bool operator!= (const Stack<T>& a, const Stack <T>& b);
-
-	// overloading output operator
+		bool operator!= (const Stack<T>& a, const Stack<T>& b);
 	template <typename T>
-		bool operator<= (const Stack<T>& a, const Stack <T>& b);
+		bool operator<= (const Stack<T>& a, const Stack<T>& b);
 
 #include "stack.hpp"
 }
