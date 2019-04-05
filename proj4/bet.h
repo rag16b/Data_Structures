@@ -39,8 +39,10 @@ class BET{
 		BinaryNode* root;	// root node
 
 		void clear();		// clears the stack
-		bool isOperand(string c); // returns true if c is an operand
-		bool isOperator(string c);// returns true if c is an operator
+		bool isOperand(string c); 	// returns true if c is an operand
+		bool isOperator(string c);	// returns true if c is an operator
+		bool isLeaf(BinaryNode *n);	// returns true if n is a leaf
+		int precedence(string s);	// determines precedence of a given operator
 
 		// recursively defined private member functions
 		void makeEmpty(BinaryNode* &t);			// delete all nodes in the subtree pointed to by t. Called by functions such as the destructor.

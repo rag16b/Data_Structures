@@ -105,18 +105,18 @@ bool BET::buildFromPostfix(const string postfix) {
 
 const BET & BET::operator=(const BET & bet) {
 	clear();
-	clone(root);
+	root = clone(bet.root);
 	ops.push(root);
 	return *this;
 }
 
-void BET::printInfixExpression() { printInfixExpression(root); }
+void BET::printInfixExpression() { printInfixExpression(root); cout << endl; }
 
-void BET::printPostfixExpression() { printPostfixExpression(root); }
+void BET::printPostfixExpression() { printPostfixExpression(root); cout << endl; }
 
 size_t BET::size() { return size(root); }
 
-size_t BET::leaf_nodes() { return leaf_noes(root); }
+size_t BET::leaf_nodes() { return leaf_nodes(root); }
 
 bool BET::empty() {
 	if (root == nullptr)
@@ -141,6 +141,17 @@ bool BET::isOperand(string str) {
 }
 
 bool BET::isOperator(string s) { return (s == "*" || s == "/" || s == "+" || s == "-"); }
+
+bool BET::isLeaf(BinaryNode *n) { return (n->lNode == nullptr && n->rNode == nullptr); }
+
+int BET::precedence(string s) {
+	if (s == "*" || s == "/")
+		return 2;
+	else if (s == "+" || s == "-")
+		return 1;
+	else
+		return 0;
+}
 
 // RECURSIVELY DEFINED PRIVATE MEMBER FUNCTIONS
 void BET::makeEmpty(BinaryNode* &t) {
@@ -167,17 +178,60 @@ BET::BinaryNode* BET::clone(BinaryNode *t) const{
 }
 
 void BET::printInfixExpression(BinaryNode *n) {
-	
+	if (n != nullptr) {
+		//if ((isOperator(n->element) && isOperator(n->rNode->element)) || ((isOperator(n->element) && isOperator(n->lNode->element)))) {
+		if (isOperator(n->element) && isOperator(n->rNode->element) && precedence(n->element) > precedence(n->rNode->element)) {
+			if (!isLeaf(n->rNode)) {
+				if (isOperand(n->rNode->rNode->element))
+					cout << "( ";
+			}
+		}
+		// print left child node (r bc I must have stored it wrong)
+		printInfixExpression(n->rNode);
+		if (isOperator(n->element) && !isOperand(n->rNode->element) && precedence(n->element) > precedence(n->rNode->element))
+			cout << ") ";
+
+		// print current node
+		cout << n->element << " ";
+
+		
+		if (isOperator(n->element) && isOperator(n->lNode->element) && precedence(n->element) >= precedence(n->lNode->element)) {
+			if (!isLeaf(n->lNode)) {
+				if (isOperand(n->lNode->rNode->element))
+				cout << "( ";
+			}
+		}
+		// print right child node (l bc I must have stored it wrong)
+		printInfixExpression(n->lNode);
+		//if ((isOperator(n->element) && isOperator(n->rNode->element)) || (isOperator(n->element) && isOperator(n->lNode->element)))
+		if (isOperator(n->element) && isOperator(n->lNode->element) && precedence(n->element) >= precedence(n->lNode->element))
+			cout << ") ";
+	}
 }
 
 void BET::printPostfixExpression(BinaryNode *n) {
-	
+	if (n != nullptr) {
+		//if (n->lNode == nullptr)
+			printPostfixExpression(n->rNode);
+		//else if (n->rNode == nullptr)
+			printPostfixExpression(n->lNode);
+		//else
+			cout << n->element << " ";
+	}
 }
 
 size_t BET::size(BinaryNode *t) {
-	
+	if (t == nullptr)	// in case of empty tree
+		return 0;
+	else
+		return 1 + size(t->lNode) + size(t->rNode); // recursive call
 }
 
 size_t BET::leaf_nodes(BinaryNode *t) {
-	
+	if (t == nullptr)	// in case of empty tree
+		return 0;
+	else if(t->lNode == nullptr && t->rNode == nullptr)	// any node without children is a leaf
+		return 1;
+	else
+		return 0 + leaf_nodes(t->lNode) + leaf_nodes(t->rNode);	// recursion
 }
