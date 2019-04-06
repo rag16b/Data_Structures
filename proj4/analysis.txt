@@ -1,0 +1,22 @@
+------------------------------------------------------------------------------------------------------------------
+Analysis of the worst-case run-time complexity of the member function makeEmpty(BinaryNode* & t) of the BET class:
+------------------------------------------------------------------------------------------------------------------
+
+This is my makeEmpty function:
+
+void BET::makeEmpty(BinaryNode* &t) {
+        if (t != nullptr) {
+                if (t->lNode != nullptr)
+                        makeEmpty(t->lNode);
+                else if (t->rNode != nullptr)
+                        makeEmpty(t->rNode);
+                else
+                        delete t;
+        }
+        t = nullptr;
+}
+
+	In defining this function, I make recursive calls to delete all the data contained in each leaf,
+moving up the tree until the root node is reached. This function is being called recursively n times before
+reaching its base case and it therefore has a linear runtime complexity. In Big-O notation, this would be
+written as: O(n).

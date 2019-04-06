@@ -1,0 +1,12 @@
+//-------README-------
+//
+// Ryan Gutierrez
+// COP4530 - 0001
+// Project 4
+
+	Please note that in my makefile, I compiled using the driver program provided by the
+professor. I was not sure whether or not to include the driver program and did not do so since
+I know that you have it. Should you want to use a different driver program, please remember
+to change the file name in the makefile.
+
+Thank you.
