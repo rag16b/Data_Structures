@@ -1,12 +1,10 @@
 CC = g++ -g -std=c++11
 RM = rm -f
-DRIV = proj4_driver.cpp
-DRIVO = proj4_driver.o
 
-bet.x: bet.o $(DRIVO)
-	$(CC) -o bet.x bet.o $(DRIVO)
-bet.o: bet.cpp $(DRIV)
-	$(CC) -c bet.cpp $(DRIV)
+proj5.x: test.o
+	$(CC) -o proj5.x test.o
+test.o: test.cpp
+	$(CC) -c test.cpp
 clean:
 	@echo "Cleaning up..."
-	$(RM) *.o proj5.x
+	$(RM) *.o proj5.x *.gch
