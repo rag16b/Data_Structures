@@ -13,8 +13,13 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <fstream>
+#include <sstream>
 #include <vector>
 #include <list>
+#include <string>
+#include <iterator>
+#include <algorithm>
 
 // max_prime is used by the helpful functions provided
 // to you.
@@ -49,7 +54,7 @@ namespace cop4530 {
 			void setPrimes(std::vector<unsigned long> &);	// sets all prime number indexes to 1
 			
 			// private member data
-			std::vector< std::list<std::pair<K, V>> > list;
+			std::vector< std::list<std::pair<K, V>> > table;
 			size_t tableSize;
 	};
 	#include "hashtable.hpp"
