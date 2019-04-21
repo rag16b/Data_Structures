@@ -1,10 +1,10 @@
 CC = g++ -g -std=c++11
 RM = rm -f
 
-proj5.x: test.o
-	$(CC) -o proj5.x test.o
-test.o: test.cpp
-	$(CC) -c test.cpp
+proj5.x: testPS.o
+	$(CC) -o proj5.x testPS.o
+testPS.o: testPS.cpp
+	$(CC) -c testPS.cpp
 clean:
 	@echo "Cleaning up..."
 	$(RM) *.o proj5.x *.gch
