@@ -132,7 +132,7 @@ bool HashTable<K, V>::load(const char * filename) {
 
 template <typename K, typename V>
 void HashTable<K, V>::dump() const {
-	int numLists, numPairs = 0;
+	int numLists = 0, numPairs = 0;
 	for (auto & currList : table) {
 		std::cout << "v[" << numLists++ << "]: ";
 		for (auto & listPos : currList) {
@@ -161,6 +161,12 @@ bool HashTable<K, V>::write_to_file(const char * filename) const {
 	}
 	out.close();
 	return true;
+}
+
+template <typename K, typename V>
+size_t HashTable<K, V>::capacity() {
+	size_t capacity = prime_below(table.size());
+	return capacity;
 }
 
 //----------------------PRIVATE MEMBER FUNCTIONS--------------------------

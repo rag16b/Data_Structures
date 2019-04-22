@@ -16,7 +16,7 @@
 namespace cop4530 {
 	class PassServer : public HashTable <std::string, std::string> {
 		public:
-			PassServer(size_t size = 101);  // constructor, create a hash table of the specified size. prime_below() will be called.
+			PassServer(size_t size);  // constructor, create a hash table of the specified size. prime_below() will be called.
 			~PassServer();  //  destructor. We do not want to have memory leak.
 			bool load(const char *filename);        // load a password file into the HashTable object. Each line contains a pair of username and encrypted password.
 			bool addUser(std::pair<std::string, std::string> & kv);  // add a new username and password. Password should be encrypted before insertion. The pair should not be added if the username already exists in the hash table.
@@ -27,6 +27,9 @@ namespace cop4530 {
 			void dump();    // show the structure and contents of the HashTable object to the screen. Same format as the dump() function in the HashTable class template.
 			size_t size() const;    // return the size of the HashTable (the number of username/password pairs in the table).
 			bool write_to_file(const char *filename) const; // save user and pass combo into a file. same format as write_to_file() in hashtable class
+			
+			// my public member functions
+			size_t capacity();	// returns the capacity of the underlying hash table
 		private:
 			std::string encrypt(const std::string & str);
 	};

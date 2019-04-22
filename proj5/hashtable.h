@@ -44,6 +44,9 @@ namespace cop4530 {
 			void dump() const;	// dilpay all entries in hashtable
 			size_t size() const;	// return the number of elements in the hash table
 			bool write_to_file(const char * filename) const;	// write all hashtable elements to file
+			
+			// my public member functions	
+			size_t capacity();	// returns the capacity of the hash table
 		private:
 			// private member functions
 			void makeEmpty();		// deletes all elements in the hashtable
